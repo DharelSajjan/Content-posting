@@ -1,0 +1,66 @@
+import requests
+import json
+
+def get_linkedin_user_urn(access_token):
+    url = 'https://api.linkedin.com/v2/userinfo'
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error: {response.status_code}, {response.text}")
+        return None
+
+def actual_post(access_token, user_urn, content):
+    """Posts content to LinkedIn using the UGC Posts API."""
+    response = get_linkedin_user_urn(access_token)
+    user_urn = response.get("sub")
+    url = 'https://api.linkedin.com/v2/ugcPosts'
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json',
+        'X-Restli-Protocol-Version': '2.0.0'
+    }
+    payload = {
+        "author": f"urn:li:person:{user_urn}",
+        "lifecycleState": "PUBLISHED",
+        "specificContent": {
+            "com.linkedin.ugc.ShareContent": {
+                "shareCommentary": {
+                    "text": content
+                },
+                "shareMediaCategory": "NONE"
+            }
+        },
+        "visibility": {
+            "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+        }
+    }
+
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status() # Raise an exception for bad status codes (4xx or 5xx)
+
+        if response.status_code == 201:
+            print("Post created successfully.")
+        else:
+            print(f"Unexpected status code: {response.status_code}")
+            print(response.text)
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+    except json.JSONDecodeError:
+        print("Error decoding json response")
+
+def post_linkedin(content):
+    """Main function to orchestrate the LinkedIn posting process."""
+    access_token="AQW3vr4ScWrdDpnbe5BP5DLgmtUuuFOZ1rds69pHIUjoCz30ibyM4QOyQdynXtqlWpTHdSrQVhfLpElC2W9gYYwZnlbkcLAJXPNb7HHIgarStPLYRoYRNQpq40c3bXW9WQlQdcSonhjF_6l9sbR-AvGGn741O44yHbDL7E6YZnKqUyCXS6neAZmtEMELIMscl2pRD7pcf-KCDD3aRGtvZOcyahFpD9XRloUKcuo2KxV6jexShMIjcJllqrmiJ0ocaeUCL_zISn12Td0eolBbgPyXp9NYGf9_m__E0u--RXLRmehvMVLtxa_tL2VcVQn3lbsnbLEnA8giMB8OEhwtjg4Cx1Qhhg"
+    user_urn = get_linkedin_user_urn(access_token)
+    if user_urn:
+        actual_post(access_token, user_urn, content)
+    else:
+        print("Failed to retrieve user URN. Cannot post.")
+
+
