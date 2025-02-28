@@ -5,8 +5,6 @@ from logging.handlers import RotatingFileHandler
 LOG_FILE = "app.log"
 LOG_LEVEL = logging.INFO
 
-# Ensure the log folder exists.
-os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
 # Define a rotating file handler
 handler = RotatingFileHandler(LOG_FILE, maxBytes=10*1024*1024, backupCount=1)
