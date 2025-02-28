@@ -1,6 +1,9 @@
+import time
 from responses_fromai import twitter_response_fromai, linkedin_response_fromai
 from parse_response import parse_twitter_content, parse_linkedin_content
-import time
+from logger_config import get_logger
+
+logger = get_logger(__name__)
 
 def generate_twitter_content(id, transcript):
     """ Generate content by fetching transcript and calling the API """
@@ -9,9 +12,9 @@ def generate_twitter_content(id, transcript):
         response = twitter_response_fromai(transcript)
 
         if response is None:
-            print(f"❌ API call failed: Response is None (Attempt {attempt+1}/{max_retries})")
+            logger.error(f"❌ API call failed: Response is None (Attempt {attempt+1}/{max_retries})")
         elif not response.candidates or not response.candidates[0].content.parts:
-            print(f"❌ API response has no valid content. (Attempt {attempt+1}/{max_retries})")
+            logger.error(f"❌ API response has no valid content. (Attempt {attempt+1}/{max_retries})")
         else:
             generated_text = response.candidates[0].content.parts[0].text
 
@@ -30,9 +33,9 @@ def generate_linkedin_content(id, transcript):
 
         # ✅ Check if API response is None
         if response is None or response is {}:
-            print(f"❌ API call failed: Response is None (Attempt {attempt+1}/{max_retries})")
+            logger.error(f"❌ API call failed: Response is None (Attempt {attempt+1}/{max_retries})")
         elif not response.candidates or not response.candidates[0].content.parts:
-            print(f"❌ API response has no valid content. (Attempt {attempt+1}/{max_retries})")
+            logger.info(f"❌ API response has no valid content. (Attempt {attempt+1}/{max_retries})")
         else:
             generated_text = response.candidates[0].content.parts[0].text
             linkedin_post = parse_linkedin_content(generated_text)  

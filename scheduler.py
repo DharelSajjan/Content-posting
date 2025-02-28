@@ -8,6 +8,10 @@ from post_linkedin import post_linkedin
 from create_content import create_contents_for_id
 from check_new_videos import check_for_new_videos
 from get_transcribe import process_video
+from logger_config import get_logger
+
+logger = get_logger(__name__)
+
 
 # Define posting times
 TWITTER_POST_TIMES = ["08:00", "12:00", "16:00", "20:00", "02:00"]
@@ -29,7 +33,7 @@ def post_to_twitter(post):
 def post_to_linkedin(post):
     """Posts content to LinkedIn."""
     #post_linkedin(post)
-    print(f"✅ Content posted to LinkedIn")
+    logger.info(f"✅ Content posted to LinkedIn")
 
 def process_new_video(channel_url):
     """Checks for new videos and processes them."""
@@ -37,7 +41,7 @@ def process_new_video(channel_url):
     if new_video_ids:
         for video_id in new_video_ids:
             process_video(video_id)
-            print(f"🔄 Processing video ID: {video_id}")
+            logger.info(f"🔄 Processing video ID: {video_id}")
     else:
         print("No new videos posted on the channel.")
 
@@ -59,7 +63,7 @@ def post_content(TWITTER_POSTS, LINKEDIN_POSTS):
 
     while twitter_post_done < len(TWITTER_POSTS) or linkedin_post_done < len(LINKEDIN_POSTS):
         current_time = get_current_time()
-        print(f"Checking time: {current_time}")     
+        logger.info(f"Checking time: {current_time}")     
 
         posted = False
 
@@ -75,39 +79,37 @@ def post_content(TWITTER_POSTS, LINKEDIN_POSTS):
 
 
                 if post:
-                    print(post)
                     post_to_linkedin(post)
                     linkedin_post_done += 1
                     posted = True
                     linkedin_index = new_index
                 else:
-                    print(f"Error: Could not extract post at index {linkedin_index}")
+                    logger.error(f"Error: Could not extract post at index {linkedin_index}")
 
         if posted:
             posted_today.add(current_time)
-            print(f"✅ Posts so far → Twitter: {twitter_post_done}, LinkedIn: {linkedin_post_done}")
+            logger.info(f"✅ Posts so far → Twitter: {twitter_post_done}, LinkedIn: {linkedin_post_done}")
 
         # Check if daily limits are reached
         if twitter_post_done >= twitter_daily_limit and linkedin_post_done >= linkedin_daily_limit:
-            print("🎯 Daily posting limits reached.")
+            logger.info("🎯 Daily posting limits reached.")
             break #stop the loop for the day.
 
         # Check if all posts are done.
         if twitter_post_done >= len(TWITTER_POSTS) and linkedin_post_done >= len(LINKEDIN_POSTS):
-            print("🎯 All posts done for the current video.")
+            logger.info("🎯 All posts done for the current video.")
             break
         time.sleep(60)
 
 def main():
     """Main function to continuously fetch and post content."""
     channel_url = 'https://www.youtube.com/@TheDiaryOfACEO/videos'
-    save_all_idinfo(channel_url)
 
     while True:
         process_new_video(channel_url)
         TWITTER_POSTS, LINKEDIN_POSTS = fetch_new_content()
         post_content(TWITTER_POSTS, LINKEDIN_POSTS)
-        print("🔄 Restarting next 2-day cycle...")
+        logger.info("🔄 Restarting next 2-day cycle...")
         time.sleep(120) # to avoid too many quick checks.
 
 

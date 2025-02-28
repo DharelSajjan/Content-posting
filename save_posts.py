@@ -1,6 +1,8 @@
 import json
 import sqlite3
+from logger_config import get_logger
 
+logger = get_logger(__name__)
 
 def save_posts(video_id, twitter_posts, linkedin_posts):
     """Parses the response and saves the tweets and LinkedIn posts to the database."""
@@ -19,12 +21,11 @@ def save_posts(video_id, twitter_posts, linkedin_posts):
             c.execute('INSERT OR REPLACE INTO posts (video_id, tweets, linkedin) VALUES (?, ?, ?)',
                       (video_id, tweets_json, linkedin_json))
             conn.commit()
-            print(f"Response saved successfully for video ID: {video_id}")
+            logger.exception(f"Response saved successfully for video ID: {video_id}")
 
     except (sqlite3.Error, json.JSONDecodeError, Exception) as e:  # Catch general exceptions
-        print(f"Error saving response: {e}")
-        raise  # Re-raise for higher-level handling
-
+        logger.error(f"Error saving response: {e}")
+        raise 
 
 def fetch_posts(video_id):
     """Fetches the tweets and LinkedIn posts from the database and returns them."""
@@ -39,9 +40,8 @@ def fetch_posts(video_id):
                 linkedin_posts = json.loads(row[1])
                 return tweets, linkedin_posts
             else:
-                print(f"No response found for video ID: {video_id}")
-                return {}, []  # Return empty dict and list for consistency
-
+                logger.debug(f"No response found for video ID: {video_id}")
+                return {}, []  
     except (sqlite3.Error, json.JSONDecodeError) as e:
-        print(f"Error fetching response: {e}")
+        logger.exception(f"Error fetching response: {e}")
         return {}, []

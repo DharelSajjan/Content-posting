@@ -1,7 +1,7 @@
 import google.generativeai as genai
-import logging
+from logger_config import get_logger
 
-logging.basicConfig(level=logging.INFO)  # Adjust as needed
+logger = get_logger(__name__)
 
 def twitter_response_fromai(transcript):
     """
@@ -13,15 +13,6 @@ def twitter_response_fromai(transcript):
     Returns:
         str: API response containing generated content, or None if the request fails.
     """
-
-    # Configure the API key from the environment variable
-    client = genai.configure(api_key="AIzaSyBrhhs8Wjcoj4ECDvCkwH69mUJHcuCP098")
-
-    # if not client.api_key:
-    #     raise ValueError("GOOGLE_API_KEY not found in environment variables. Please set it.")
-
-
-    # For text-only input, use the gemini-1.5-flash model
     model = genai.GenerativeModel('gemini-1.5-flash')
 
     prompt = f"""
@@ -61,12 +52,12 @@ def twitter_response_fromai(transcript):
     }
 
     try:
-        logging.debug(f"Sending prompt: {prompt}")
+        logger.debug(f"Sending prompt: {prompt}")
         response = model.generate_content(prompt, generation_config=generation_config)
-        logging.debug(f"API response: {response}")
+        logger.debug(f"API response: {response}")
         return response
     except Exception as e:
-        logging.exception(f"API request failed: {e}")  # Log the exception with traceback
+        logger.exception(f"API request failed: {e}") 
         return None
         
 def linkedin_response_fromai(transcript):
@@ -164,10 +155,10 @@ def linkedin_response_fromai(transcript):
     }
 
     try:
-        logging.debug(f"Sending prompt: {prompt}")
+        logger.debug(f"Sending prompt: {prompt}")
         response = model.generate_content(prompt, generation_config=generation_config)
-        logging.debug(f"API response: {response}")
+        logger.debug(f"API response: {response}")
         return response
     except Exception as e:
-        logging.exception(f"API request failed: {e}")  # Log the exception with traceback
+        logger.exception(f"API request failed: {e}")  # Log the exception with traceback
         return None

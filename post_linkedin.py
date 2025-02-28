@@ -1,5 +1,8 @@
 import requests
 import json
+from logger_config import get_logger
+
+logger = get_logger(__name__)
 
 def get_linkedin_user_urn(access_token):
     url = 'https://api.linkedin.com/v2/userinfo'
@@ -10,7 +13,7 @@ def get_linkedin_user_urn(access_token):
     if response.status_code == 200:
         return response.json()
     else:
-        print(f"Error: {response.status_code}, {response.text}")
+        logger.info(f"Error: {response.status_code}, {response.text}")
         return None
 
 def actual_post(access_token, user_urn, content):
@@ -41,18 +44,17 @@ def actual_post(access_token, user_urn, content):
 
     try:
         response = requests.post(url, headers=headers, json=payload)
-        response.raise_for_status() # Raise an exception for bad status codes (4xx or 5xx)
-
+        response.raise_for_status() 
         if response.status_code == 201:
-            print("Post created successfully.")
+            logger.info("Post created successfully.")
         else:
-            print(f"Unexpected status code: {response.status_code}")
-            print(response.text)
+            logger.info(f"Unexpected status code: {response.status_code}")
+            logger.info(response.text)
 
     except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
+        logger.exception(f"An error occurred: {e}")
     except json.JSONDecodeError:
-        print("Error decoding json response")
+        logger.error("Error decoding json response for Linkedin api posting.")
 
 def post_linkedin(content):
     """Main function to orchestrate the LinkedIn posting process."""
@@ -61,6 +63,6 @@ def post_linkedin(content):
     if user_urn:
         actual_post(access_token, user_urn, content)
     else:
-        print("Failed to retrieve user URN. Cannot post.")
+        logger.error("Failed to retrieve user URN. Cannot post.")
 
 

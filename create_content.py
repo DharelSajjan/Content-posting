@@ -4,6 +4,10 @@ from get_transcribe import get_transcript
 from  generate_posts_from_ai import generate_twitter_content, generate_linkedin_content
 from save_posts import save_posts
 
+from logger_config import get_logger
+
+logger = get_logger(__name__)
+
 
 def is_video_id_in_other_db(video_id):
     """Checks if a given video_id exists in 'posts.db'. Creates table if not exists."""
@@ -36,7 +40,7 @@ def get_unique_random_video_id():
             return None  
 
         if not is_video_id_in_other_db(video_id):
-            return video_id  # Found a unique video ID
+            return video_id  
 
 
 # Main function to process the video URL
@@ -52,5 +56,5 @@ def create_contents_for_id():
             video_id, twitter_posts = generate_twitter_content(video_id, transcript)
             _, linkedin_posts = generate_linkedin_content(video_id, transcript)
             save_posts(video_id, twitter_posts, linkedin_posts)
-            print(f"Content created and saved successfully for video ID: {video_id}")
+            logger.info(f"Content created and saved successfully for video ID: {video_id}")
             return  video_id

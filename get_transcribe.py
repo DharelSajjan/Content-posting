@@ -3,6 +3,9 @@ from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
 import re
 import sqlite3
 from datetime import datetime
+from logger_config import get_logger
+
+logger = get_logger(__name__)
 
 # Function to extract metadata from a YouTube video
 def get_metadata(video_url):
@@ -66,9 +69,9 @@ def save_to_database(metadata):
         
         conn.commit()
     except sqlite3.IntegrityError:
-        print(f"Video {metadata['id']} already exists in the database. Skipping...")
+        logger.info(f"Video {metadata['id']} already exists in the database. Skipping...")
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
+        logger.exception(f"Database error: {e}")
     finally:
         conn.close()
 
@@ -79,8 +82,8 @@ def process_video(video_id):
     metadata = get_metadata(video_url)
 
     # Display extracted information
-    print("\nMetadata:")
-    print(f"Video ID: {metadata['id']}")
-    print(f"Title: {metadata['title']}")
-    print(f"Upload Date: {metadata['upload_date']}")    
+    logger.info("\nMetadata:")
+    logger.info(f"Video ID: {metadata['id']}")
+    logger.info(f"Title: {metadata['title']}")
+    logger.info(f"Upload Date: {metadata['upload_date']}")    
     save_to_database(metadata)

@@ -1,4 +1,7 @@
 import yt_dlp
+from logger_config import get_logger
+
+logger = get_logger(__name__)
 
 def get_video_ids(channel_url):
     """
@@ -27,12 +30,12 @@ def get_video_ids(channel_url):
                     for entry in info['entries']
                     if entry.get('id')  
                 ]
-                print(f"{len(video_ids)} videos found.")
+                logger.info(f"{len(video_ids)} videos found.")
                 return video_ids
             else:
-                print("No videos found in the channel.")
+                logger.info("No videos found in the channel.")
                 return []
 
     except Exception as e:
-        print(f"Error occurred: {e}")
+        logger.exception(f"Error occurred: {e}")
         return []

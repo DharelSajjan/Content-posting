@@ -1,7 +1,8 @@
 import re
 import json
-import logging
-logging.basicConfig(level=logging.INFO)
+from logger_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def parse_twitter_content(text):
@@ -17,10 +18,10 @@ def parse_twitter_content(text):
             json_data = json.loads(json_str)  # Convert to JSON object
             return json_data  # Return parsed JSON
         except json.JSONDecodeError as e:
-            print("JSON Decode Error:", e)
+            logger.exception("JSON Decode Error:", e)
             return None
     else:
-        print("No JSON-like data found.")
+        logger.info("No JSON-like data found.")
         return None
     
 def parse_linkedin_content(text):
@@ -32,7 +33,7 @@ def parse_linkedin_content(text):
         match = re.search(pattern, text, re.DOTALL)
 
         if not match:
-            print("No JSON-like data found in the text.")
+            logger.info("No JSON-like data found in the text.")
             return {}
 
         # Extract the JSON-like string
@@ -62,9 +63,9 @@ def parse_linkedin_content(text):
         return parsed_posts
 
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
+        logger.exception(f"Error decoding JSON: {e}")
         return {}
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        logger.exception(f"An unexpected error occurred: {e}")
         return {}
 
