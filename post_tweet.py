@@ -1,15 +1,13 @@
 import requests
 from requests_oauthlib import OAuth1
-import random
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-# # Twitter API credentials (Free Tier)
-API_KEY = "SzTe4lH6T90ZqANpyhx3PHJj3"
-API_SECRET_KEY = "5J4LJSLjSRHgOxcaIU9yjMf52XYXCFHBEHQdKZb2w6jzvt5EsE"
-ACCESS_TOKEN = "1881470657663242240-toVHeq5z13NfVnMaphtivhgVaeLcQB"
-ACCESS_TOKEN_SECRET = "25xEQZSiuljfmueWP4zpTOz0jJpx06Il58CPJESmQozZc"
-bearer_token= "AAAAAAAAAAAAAAAAAAAAABlvyQEAAAAAtKTY%2F4FdtHeRvJLzsd1m7%2BeaPSU%3DsFuRdzGNer79YMyg2MHBRnl6ummru5EQHzWMLfIiLXGilz5jKW"
-
-
+API_KEY = os.getenv("TW_API_KEY")
+API_SECRET_KEY = os.getenv("TW_API_SECRET_KEY")
+ACCESS_TOKEN = os.getenv("TW_ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = os.getenv("TW_ACCESS_TOKEN_SECRET")
 
 def post_tweet(tweet_text):
     url = "https://api.twitter.com/2/tweets"
