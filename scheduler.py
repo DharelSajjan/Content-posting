@@ -9,8 +9,8 @@ from check_new_videos import check_for_new_videos
 from get_transcribe import process_video
 
 # Define posting times
-TWITTER_POST_TIMES = ["08:00", "12:00", "19:49", "19:34", "02:00"]
-LINKEDIN_POST_TIMES = ["9:00", "21:36"]
+TWITTER_POST_TIMES = ["08:00", "12:00", "16:00", "20:00", "02:00"]
+LINKEDIN_POST_TIMES = ["9:00", "21:00"]
 
 def get_current_time():
     """Returns the current time in HH:MM format."""
@@ -27,7 +27,7 @@ def post_to_twitter(post):
 
 def post_to_linkedin(post):
     """Posts content to LinkedIn."""
-    post_linkedin(post)
+    #post_linkedin(post)
     print(f"✅ Content posted to LinkedIn")
 
 def process_new_video(channel_url):
