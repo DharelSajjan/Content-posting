@@ -1,5 +1,4 @@
 import google.generativeai as genai
-import os
 import logging
 
 logging.basicConfig(level=logging.INFO)  # Adjust as needed

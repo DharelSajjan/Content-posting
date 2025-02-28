@@ -1,4 +1,3 @@
-from colorama import Fore, Style
 from post_linkedin import post_linkedin
 
 def bold_text(text):

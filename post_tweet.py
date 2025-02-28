@@ -1,7 +1,7 @@
+import os
 import requests
 from requests_oauthlib import OAuth1
 from dotenv import load_dotenv
-import os
 load_dotenv()
 
 API_KEY = os.getenv("TW_API_KEY")

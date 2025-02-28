@@ -13,7 +13,3 @@ def save_all_idinfo(channel_url):
         print("All video IDs saved successfully.")
     except Exception as e:
         print(f"Error saving video IDs: {e}")
-
-if __name__ == "__main__":
-    channel_url = 'https://www.youtube.com/@TheDiaryOfACEO/videos'
-    save_all_idinfo(channel_url)

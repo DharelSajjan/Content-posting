@@ -1,6 +1,7 @@
 import time
 from datetime import datetime
 from post_tweet import post_tweet
+from save_all_idinfo import save_all_idinfo
 from save_posts import fetch_posts
 from extract_linkedin_post import extract_linkedin_post
 from post_linkedin import post_linkedin
@@ -100,6 +101,7 @@ def post_content(TWITTER_POSTS, LINKEDIN_POSTS):
 def main():
     """Main function to continuously fetch and post content."""
     channel_url = 'https://www.youtube.com/@TheDiaryOfACEO/videos'
+    save_all_idinfo(channel_url)
 
     while True:
         process_new_video(channel_url)
