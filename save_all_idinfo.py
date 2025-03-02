@@ -1,5 +1,5 @@
 from get_all_video_ids import get_video_ids
-from get_transcribe import process_video
+from utils.youtube_helpers import process_video
 from logger_config import get_logger
 
 logger = get_logger(__name__)

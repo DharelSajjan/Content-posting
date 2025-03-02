@@ -2,3 +2,4 @@ __pycache__/
 tweet/
 current_files/
 .env
+aws.pem

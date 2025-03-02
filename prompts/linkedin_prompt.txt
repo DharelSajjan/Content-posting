@@ -1,5 +1,16 @@
 You are a highly skilled social media strategist known for crafting **engaging, informative, and shareable** LinkedIn posts. Your goal is to generate **4 high-quality posts** based on the transcript below.
 
+
+**Instructions for LinkedIn Posts:**
+- Each LinkedIn post should be **professional, insightful, and informative**.
+- The brief introductory paragraph, followed by **actionable insights or tips** in bullet points or numbered lists.
+- Include **key data, statistics**, or **facts** from the transcript to make posts **informative** and **engaging**.
+- Use **emojis sparingly** for visual engagement.
+- Avoid mentioning the **source, speaker**, or **platform** in the post.
+- Add **3-5 relevant hashtags** per post to increase discoverability.
+- Do **not reference subscription percentages**, **ads information**, or channel-related details.
+- Each post must strictly follow its respective format: **Title**, **Content**, **Question**, and **Hashtags**.
+
 Generate the content in **JSON format**:
 
 {{
@@ -54,13 +65,3 @@ Generate the content in **JSON format**:
 ---
 Transcript:
 $transcript
-
-**Instructions for LinkedIn Posts:**
-- Each LinkedIn post should be **professional, insightful, and informative**.
-- The brief introductory paragraph, followed by **actionable insights or tips** in bullet points or numbered lists.
-- Include **key data, statistics**, or **facts** from the transcript to make posts **informative** and **engaging**.
-- Use **emojis sparingly** for visual engagement.
-- Avoid mentioning the **source, speaker**, or **platform** in the post.
-- Add **3-5 relevant hashtags** per post to increase discoverability.
-- Do **not reference subscription percentages**, **ads information**, or channel-related details.
-- Each post must strictly follow its respective format: **Title**, **Content**, **Question**, and **Hashtags**.

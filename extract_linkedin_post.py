@@ -1,4 +1,4 @@
-from post_linkedin import post_linkedin
+from utils.post_linkedin import post_linkedin
 
 def bold_text(text):
     """Returns the input text formatted in bold."""

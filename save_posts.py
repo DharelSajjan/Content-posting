@@ -21,7 +21,7 @@ def save_posts(video_id, twitter_posts, linkedin_posts):
             c.execute('INSERT OR REPLACE INTO posts (video_id, tweets, linkedin) VALUES (?, ?, ?)',
                       (video_id, tweets_json, linkedin_json))
             conn.commit()
-            logger.exception(f"Response saved successfully for video ID: {video_id}")
+            logger.info(f"Response saved successfully for video ID: {video_id}")
 
     except (sqlite3.Error, json.JSONDecodeError, Exception) as e:  # Catch general exceptions
         logger.error(f"Error saving response: {e}")

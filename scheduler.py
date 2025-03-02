@@ -1,20 +1,19 @@
 import time
 from datetime import datetime
 from utils.tweet_helpers import post_tweet
-from save_all_idinfo import save_all_idinfo
 from save_posts import fetch_posts
 from extract_linkedin_post import extract_linkedin_post
-from post_linkedin import post_linkedin
+from utils.post_linkedin import post_linkedin
 from create_content import create_contents_for_id
 from check_new_videos import check_for_new_videos
-from get_transcribe import process_video
+from utils.youtube_helpers import process_video
 from logger_config import get_logger
-
+    
 logger = get_logger(__name__)
 
 
 # Define posting times
-TWITTER_POST_TIMES = ["08:00", "12:00", "16:00", "20:00", "02:00"]
+TWITTER_POST_TIMES = ["08:00", "12:00", "16:00", "18:22", "02:00"]
 LINKEDIN_POST_TIMES = ["9:00", "21:00"]
 
 
@@ -68,8 +67,7 @@ def post_content(TWITTER_POSTS, LINKEDIN_POSTS):
     linkedin_daily_limit = 2
 
     while twitter_post_done < len(TWITTER_POSTS) or linkedin_post_done < len(
-        LINKEDIN_POSTS
-    ):
+        LINKEDIN_POSTS):
         current_time = get_current_time()
         logger.info(f"Checking time: {current_time}")
 

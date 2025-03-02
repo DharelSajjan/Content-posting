@@ -15,10 +15,10 @@ You are a highly skilled social media strategist known for crafting **engaging, 
 **Format for Each Tweet**:
 ---
 
-[{{"tweet 1":"Insert tweet content here."}},
-{{"tweet 2":"Insert tweet content here."}},
+[{"tweet 1":"Insert tweet content here."},
+{"tweet 2":"Insert tweet content here."},
 ...
-{{"tweet 10":"Insert tweet content here."}}]
+{"tweet 10":"Insert tweet content here."}]
 
 ---
 Transcript:

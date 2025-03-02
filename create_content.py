@@ -1,8 +1,8 @@
 import sqlite3
 from get_random_video_id import get_random_video_id_from_db
-from get_transcribe import get_transcript
-from  generate_posts_from_ai import generate_twitter_content, generate_linkedin_content
 from save_posts import save_posts
+from utils.youtube_helpers import get_transcript
+from generate_posts_from_ai import generate_twitter_content, generate_linkedin_content
 
 from logger_config import get_logger
 
@@ -53,8 +53,8 @@ def create_contents_for_id():
         if "Error" in transcript:
             return transcript
         else:
-            video_id, twitter_posts = generate_twitter_content(video_id, transcript)
-            _, linkedin_posts = generate_linkedin_content(video_id, transcript)
+            video_id, twitter_posts = generate_twitter_content(video_id,transcript)
+            _, linkedin_posts = generate_linkedin_content(video_id,transcript)
             save_posts(video_id, twitter_posts, linkedin_posts)
             logger.info(f"Content created and saved successfully for video ID: {video_id}")
             return  video_id

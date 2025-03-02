@@ -1,6 +1,5 @@
 import time
-from responses_fromai import twitter_response_fromai, linkedin_response_fromai
-from parse_response import parse_twitter_content, parse_linkedin_content
+from utils.llm_helpers import get_llm_response,parse_twitter_content,parse_linkedin_content
 from logger_config import get_logger
 
 logger = get_logger(__name__)
@@ -9,7 +8,7 @@ def generate_twitter_content(id, transcript):
     """ Generate content by fetching transcript and calling the API """
     max_retries = 3
     for attempt in range(max_retries):
-        response = twitter_response_fromai(transcript)
+        response = get_llm_response("twitter",transcript=transcript)
 
         if response is None:
             logger.error(f"❌ API call failed: Response is None (Attempt {attempt+1}/{max_retries})")
@@ -29,7 +28,7 @@ def generate_linkedin_content(id, transcript):
     """ Generate content by fetching transcript and calling the API with retries """
     max_retries=3
     for attempt in range(max_retries):
-        response = linkedin_response_fromai(transcript)
+        response = get_llm_response("linkedin",transcript=transcript)
 
         # ✅ Check if API response is None
         if response is None or response is {}:

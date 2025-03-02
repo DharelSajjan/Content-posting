@@ -1,8 +1,13 @@
 import re
+import os
+import sys
 import json
+from pathlib import Path
 import google.generativeai as genai
 from string import Template as StringTemplate
-from utils.settings import PROMPTS_PATH
+from dotenv import load_dotenv
+load_dotenv()
+
 
 from logger_config import get_logger
 
@@ -84,11 +89,17 @@ def get_llm_response(platform, **placeholders):
     Returns:
         str: API response containing generated content, or None if the request fails.
     """
+    api_key = os.getenv("GEMIN_API")
     model = genai.GenerativeModel("gemini-1.5-flash")
+    client = genai.configure(api_key=api_key)
 
+    PROMPTS_PATH = Path(__file__).resolve().parent.parent / "prompts"
     prompt_subpath = f"{platform}_prompt.txt"
-    with open(PROMPTS_PATH / f"{prompt_subpath}.txt", "r") as file:
+    
+   # Open and read the whole file content
+    with open(PROMPTS_PATH / f"{prompt_subpath}", "r") as file:
         prompt = StringTemplate(file.read()).substitute(**placeholders)
+    
 
     generation_config = {
         "temperature": 0.7,  # Adjust for more or less randomness
