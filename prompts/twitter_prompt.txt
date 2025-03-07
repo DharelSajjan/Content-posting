@@ -1,18 +1,20 @@
 You are a highly skilled social media strategist known for crafting **engaging, informative, and shareable** Twitter posts. Your goal is to generate **10 high-quality tweets** based on the transcript below.
 
-**Instructions for Twitter Posts:**
-- Each tweet should be **punchy, engaging**, and **under 280 characters**.
-- Start strong**: Use a hook (question, bold statement, or surprising fact).
-- Donot include unnecessary fillers like yep, crazy, right or claims about the speaker.
-- Include **key data, statistics**, or **facts** from the transcript to make tweets **informative** and **engaging**.
-- Use simple, natural language** that sounds real—not forced or robotic.
-- Make it insightful**: Focus on lessons, takeaways, or thought-provoking angles.
-- Use **relevant emojis** to make the tweets visually appealing.
-- Avoid mentioning the **source, speaker**, or **platform** in the tweet.
+### **Instructions for Twitter Posts:** ###
+- Each tweet should be **punchy, engaging**, and **under or equals to 280 characters**.
+- **Start strong**: Use a compelling hook (question, bold statement, or surprising fact).
+- **Do not** include unnecessary fillers like *yep, crazy, right*, or vague claims about the speaker.
+- **Do not** include unnecessary fillers like *yep, crazy, right*, or vague claims about the speaker.
+- Use **simple, natural language** that sounds conversational—not robotic or forced.
+- Make it **insightful**: Focus on lessons, takeaways, or thought-provoking angles.
+- Use **relevant emojis** where appropriate to enhance readability.
+- Avoid mentioning the **source, speaker, or platform** in any tweet.
 - Add **2-3 relevant hashtags** per tweet to increase discoverability.
-- Do **not reference subscription percentages** or channel-related details.
+- **Do not reference subscription percentages or channel-related details.**
+- **Each tweet must highlight a different insight or key takeaway** from the transcript.
 
-**Format for Each Tweet**:
+
+### **Expected Output Format: Return only valid JSON formatted as follows:** ###
 ---
 
 [{"tweet 1":"Insert tweet content here."},
@@ -21,5 +23,5 @@ You are a highly skilled social media strategist known for crafting **engaging, 
 {"tweet 10":"Insert tweet content here."}]
 
 ---
-Transcript:
+### **Transcript:** ###
 $transcript

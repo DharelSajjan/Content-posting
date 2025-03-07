@@ -44,3 +44,34 @@ def generate_linkedin_content(id, transcript):
 
     return id, "No content generated after multiple attempts."
 
+def generate_twitter_thread(id, transcript):
+    """ Generate content by fetching transcript and calling the API with retries """
+    max_retries=3
+    for attempt in range(max_retries):
+        response = get_llm_response("thread",transcript=transcript)
+
+        # ✅ Check if API response is None
+        if response is None or response is {}:
+            logger.error(f"❌ API call failed: Response is None (Attempt {attempt+1}/{max_retries})")
+        elif not response.candidates or not response.candidates[0].content.parts:
+            logger.info(f"❌ API response has no valid content. (Attempt {attempt+1}/{max_retries})")
+        else:
+            generated_text = response.candidates[0].content.parts[0].text
+            #linkedin_post = parse_linkedin_content(generated_text)  
+            #eturn id, linkedin_post
+
+        time.sleep(2 ** attempt)
+
+    return id, "No content generated after multiple attempts."
+
+
+with open("transcript.txt",'r') as file:
+    transcript = file.read()
+    
+generated_text= generate_twitter_thread("8RuWp3s6Uxk",transcript=transcript)
+
+
+
+
+
+

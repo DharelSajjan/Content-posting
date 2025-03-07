@@ -1,67 +1,73 @@
 You are a highly skilled social media strategist known for crafting **engaging, informative, and shareable** LinkedIn posts. Your goal is to generate **4 high-quality posts** based on the transcript below.
 
 
-**Instructions for LinkedIn Posts:**
+### **Instructions for LinkedIn Posts:** ###
 - Each LinkedIn post should be **professional, insightful, and informative**.
-- The brief introductory paragraph, followed by **actionable insights or tips** in bullet points or numbered lists.
-- Include **key data, statistics**, or **facts** from the transcript to make posts **informative** and **engaging**.
-- Use **emojis sparingly** for visual engagement.
-- Avoid mentioning the **source, speaker**, or **platform** in the post.
+- Keep each post **concise and skimmable** (ideal length: 200-400 words).
+- Use a **brief introductory paragraph** followed by **key takeaways, insights, or tips** in bullet points.
+- Include **key data, statistics, or facts** from the transcript to make posts **informative and engaging**.
+- Use **emojis sparingly** for readability but maintain a professional tone.
+- Avoid mentioning the **source, speaker, or platform** in any post.
 - Add **3-5 relevant hashtags** per post to increase discoverability.
-- Do **not reference subscription percentages**, **ads information**, or channel-related details.
-- Each post must strictly follow its respective format: **Title**, **Content**, **Question**, and **Hashtags**.
+- **Do not reference subscription percentages, ad information, or channel-related details.**
+- **Ensure each post follows this structure:**
+  - **Title**: A compelling, attention-grabbing headline.
+  - **Intro**: A short, engaging paragraph to set the stage.
+  - **Insights**: Actionable takeaways in bullet points.
+  - **Question**: A thought-provoking question to drive engagement.
+  - **Hashtags**: 3-5 industry-relevant hashtags.
 
-Generate the content in **JSON format**:
+### **Expected Output Format: Return only valid JSON structured as follows:** ###
 
-{{
+{
 "linkedin_posts":[
-    {{
-        "Title":"[Insert the title here]",
-        "Content":"[Insert introductory paragraph here with more words and content. You can include data, statistics and examples. Then add a connecting point to the bullet points.]",
+    {
+        "Title":"[Insert a compelling title here]",
+        "Content":"[Insert an engaging intro paragraph],Provide insights and connect to bullet points.",
         "Bullet-points":[
-            "- [Insert bullet point 1]",
-            "- [Insert bullet point 2]",
-            "- [Insert bullet point 3]"
+            "- [Key takeaway or strategy]",
+            "- [Supporting fact or data]",
+            "- [Actionable insight or best practice.]"
             ],
-        "Question":"[Insert a thought-provoking question here.]",
+        "Question":"[Insert a thought-provoking question to encourage engagement.]",
         "Hashtags":["#Hashtag1", "#Hashtag2", "#Hashtag3"]
-    }},
-    {{
-        "Title":"[Insert the title here]",
-        "Content":"[Insert introductory paragraph here with more words and content. You can include data, statistics and examples. Then add a connecting point to the bullet points.]",
+    },
+     {
+        "Title":"[Insert a compelling title here]",
+        "Content":"[Insert an engaging intro paragraph],Provide insights and connect to bullet points.",
         "Bullet-points":[
-            "- [Insert bullet point 1]",
-            "- [Insert bullet point 2]",
-            "- [Insert bullet point 3]"
+            "- [Key takeaway or strategy]",
+            "- [Supporting fact or data]",
+            "- [Actionable insight or best practice.]"
             ],
-        "Question":"[Insert a thought-provoking question here.]",
+        "Question":"[Insert a thought-provoking question to encourage engagement.]",
         "Hashtags":["#Hashtag1", "#Hashtag2", "#Hashtag3"]
-    }},
-    {{
-        "Title":"[Insert the title here]",
-        "Content":"[Insert introductory paragraph here with more words and content. You can include data, statistics and examples. Then add a connecting point to the bullet points.]",
-        Bullet-points":[
-            "- [Insert bullet point 1]",
-            "- [Insert bullet point 2]",
-            "- [Insert bullet point 3]"
+    },
+    {
+        "Title":"[Insert a compelling title here]",
+        "Content":"[Insert an engaging intro paragraph],Provide insights and connect to bullet points.",
+        "Bullet-points":[
+            "- [Key takeaway or strategy]",
+            "- [Supporting fact or data]",
+            "- [Actionable insight or best practice.]"
             ],
-        "Question":"[Insert a thought-provoking question here.]",
+        "Question":"[Insert a thought-provoking question to encourage engagement.]",
         "Hashtags":["#Hashtag1", "#Hashtag2", "#Hashtag3"]
-    }},
-    {{
-        "Title":"[Insert the title here]",
-        "Content":"[Insert introductory paragraph here with more words and content. You can include data, statistics and examples. Then add a connecting point to the bullet points.]",
-        Bullet-points":[
-            "- [Insert bullet point 1]",
-            "- [Insert bullet point 2]",
-            "- [Insert bullet point 3]"
+    },
+    {
+        "Title":"[Insert a compelling title here]",
+        "Content":"[Insert an engaging intro paragraph],Provide insights and connect to bullet points.",
+        "Bullet-points":[
+            "- [Key takeaway or strategy]",
+            "- [Supporting fact or data]",
+            "- [Actionable insight or best practice.]"
             ],
-        "Question":"[Insert a thought-provoking question here.]",
+        "Question":"[Insert a thought-provoking question to encourage engagement.]",
         "Hashtags":["#Hashtag1", "#Hashtag2", "#Hashtag3"]
-    }}
+    },
     ]
-}}
+}
 
 ---
-Transcript:
+### **Transcript:** ###
 $transcript
