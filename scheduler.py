@@ -13,8 +13,8 @@ logger = get_logger(__name__)
 
 
 # Define posting times
-TWITTER_POST_TIMES = ["08:00", "12:00", "16:00", "23:16", "02:00"]
-LINKEDIN_POST_TIMES = ["9:00", "22:39"]
+TWITTER_POST_TIMES = ["08:00", "12:00", "16:00", "20:00", "02:00"]
+LINKEDIN_POST_TIMES = ["9:00", "21:00"]
 
 def get_current_time():
     """Returns the current time in HH:MM format."""
