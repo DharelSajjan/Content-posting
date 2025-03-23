@@ -5,6 +5,7 @@ current_files/
 aws.pem
 *.png
 *.log
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
