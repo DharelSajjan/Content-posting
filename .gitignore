@@ -5,3 +5,11 @@ current_files/
 aws.pem
 *.png
 *.log
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.vscode/*
+!.vscode/
+!.vscode/launch.reference.json
