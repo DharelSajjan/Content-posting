@@ -4,3 +4,4 @@ current_files/
 .env
 aws.pem
 *.png
+*.log
