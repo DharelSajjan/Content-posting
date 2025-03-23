@@ -3,3 +3,14 @@ tweet/
 current_files/
 .env
 aws.pem
+*.png
+*.log
+*.db
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.vscode/*
+!.vscode/
+!.vscode/launch.reference.json
