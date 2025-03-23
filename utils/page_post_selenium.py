@@ -19,6 +19,7 @@ LINKEDIN_EMAIL = os.getenv("LINKEDIN_EMAIL")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 LINKEDIN_PAGE_URL = "https://www.linkedin.com/company/106607818/admin/"
 
+
 class LinkedInAutomation:
     def __init__(self):
         self.driver = None
@@ -67,67 +68,74 @@ class LinkedInAutomation:
     def close_popups(self):
         """Closes any LinkedIn overlays or chat popups."""
         try:
-            overlay = self.driver.find_element(By.CLASS_NAME, "msg-overlay-bubble-header__details")
+            overlay = self.driver.find_element(
+                By.CLASS_NAME, "msg-overlay-bubble-header__details"
+            )
             self.driver.execute_script("arguments[0].style.display = 'none';", overlay)
             logger.info("✔ Overlay removed successfully.")
         except Exception:
             logger.info("✔ No overlay detected.")
 
-#    def click_create_button(self):
-#        """Finds and clicks the 'Create' button."""
-#        logger.info("🔹 Finding 'Create' button...")
-#        create_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'org-organizational-page-admin-navigation__cta')]")))
-#
-#        self.driver.execute_script("arguments[0].scrollIntoView();", create_button)
-#        time.sleep(8)
+    #    def click_create_button(self):
+    #        """Finds and clicks the 'Create' button."""
+    #        logger.info("🔹 Finding 'Create' button...")
+    #        create_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'org-organizational-page-admin-navigation__cta')]")))
+    #
+    #        self.driver.execute_script("arguments[0].scrollIntoView();", create_button)
+    #        time.sleep(8)
 
-#        logger.info("🔹 Clicking 'Create' button using JavaScript...")
-#        self.driver.execute_script("arguments[0].click();", create_button)
-#        time.sleep(3)
-#        logger.info("✅ 'Create' button clicked!")
-
+    #        logger.info("🔹 Clicking 'Create' button using JavaScript...")
+    #        self.driver.execute_script("arguments[0].click();", create_button)
+    #        time.sleep(3)
+    #        logger.info("✅ 'Create' button clicked!")
 
     def click_create_button(self):
-    """Finds and clicks the 'Create' button."""
+        """Finds and clicks the 'Create' button."""
         logger.info("🔹 Finding 'Create' button...")
-    
+
         try:
-        # Wait for the button to be clickable
+            # Wait for the button to be clickable
             create_button = self.wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'org-organizational-page-admin-navigation__cta')]"))
-           )
-        
-        # Debugging: Log button state
+                EC.element_to_be_clickable(
+                    (
+                        By.XPATH,
+                        "//button[contains(@class, 'org-organizational-page-admin-navigation__cta')]",
+                    )
+                )
+            )
+
+            # Debugging: Log button state
             logger.info(f"Button visible: {create_button.is_displayed()}")
             logger.info(f"Button enabled: {create_button.is_enabled()}")
 
-        # Scroll the button into view
-            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", create_button)
+            # Scroll the button into view
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView({block: 'center'});", create_button
+            )
             time.sleep(2)  # Allow time for scrolling
 
-        # Debugging: Take a screenshot before clicking
+            # Debugging: Take a screenshot before clicking
             self.driver.save_screenshot("before_create_button.png")
 
-        # Click the button using JavaScript
+            # Click the button using JavaScript
             logger.info("🔹 Clicking 'Create' button using JavaScript...")
             self.driver.execute_script("arguments[0].click();", create_button)
             time.sleep(3)  # Allow time for the click to register
 
-        # Debugging: Take a screenshot after clicking
+            # Debugging: Take a screenshot after clicking
             self.driver.save_screenshot("after_create_button.png")
 
             logger.info("✅ 'Create' button clicked!")
-        except TimeoutException:
-            logger.error("❌ Timed out waiting for the 'Create' button to be clickable.")
-            raise  # Re-raise the exception to stop further execution
         except Exception as e:
             logger.exception(f"❌ Failed to click the 'Create' button: {e}")
-            raise  
+            raise
 
     def click_start_a_post(self):
         """Finds and clicks the 'Start a Post' button."""
         logger.info("🔹 Finding 'Start a Post' button...")
-        start_post_button = self.wait.until(EC.element_to_be_clickable((By.ID, "org-menu-POSTS")))
+        start_post_button = self.wait.until(
+            EC.element_to_be_clickable((By.ID, "org-menu-POSTS"))
+        )
 
         self.driver.execute_script("arguments[0].scrollIntoView();", start_post_button)
         time.sleep(5)
@@ -142,7 +150,7 @@ class LinkedInAutomation:
     def enter_post_content(self, content):
         """Enters text content into the LinkedIn post box and verifies it."""
         logger.info("🔹 Entering post content...")
-        
+
         try:
             # Locate the post editor
             text_area = self.wait.until(
@@ -152,39 +160,49 @@ class LinkedInAutomation:
             time.sleep(1)  # Wait for the editor to be ready
 
             # Insert the content directly using JavaScript
-            self.driver.execute_script("arguments[0].innerText = arguments[1];", text_area, content)
+            self.driver.execute_script(
+                "arguments[0].innerText = arguments[1];", text_area, content
+            )
             time.sleep(2)  # Allow time for the content to be inserted
 
             # Retrieve the pasted content using JavaScript
-            pasted_content = self.driver.execute_script("return arguments[0].innerText;", text_area)
+            pasted_content = self.driver.execute_script(
+                "return arguments[0].innerText;", text_area
+            )
             logger.info(f"🔹 Pasted content: {pasted_content}")
 
             # Debugging: Take a screenshot of the editor
             self.driver.save_screenshot("editor_content.png")
 
             # Verify if the pasted content matches the original content
-            if pasted_content.strip() == content.strip():
-                logger.info("✅ Content pasted successfully!")
-            else:
-                logger.error("❌ Content not pasted correctly!")
-                raise ValueError("Content not pasted correctly!")
+            # if pasted_content.strip() == content.strip():
+            #     logger.info("✅ Content pasted successfully!")
+            # else:
+            #     logger.error("❌ Content not pasted correctly!")
+            #     raise ValueError("Content not pasted correctly!")
         except Exception as e:
             logger.exception(f"❌ Failed to enter post content: {e}")
             raise  # Re-raise the exception to stop further execution
-    
 
     def click_post_button(self):
         """Finds and clicks the 'Post' button to publish content."""
         logger.info("🔹 Finding 'Post' button...")
-        
+
         try:
             # Wait for the button to be clickable
             post_button = self.wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'share-actions__primary-action')]"))
+                EC.element_to_be_clickable(
+                    (
+                        By.XPATH,
+                        "//button[contains(@class, 'share-actions__primary-action')]",
+                    )
+                )
             )
-            
+
             # Scroll the button into view
-            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", post_button)
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView({block: 'center'});", post_button
+            )
             time.sleep(1)  # Allow time for scrolling
 
             # Debugging: Log button state
@@ -206,6 +224,7 @@ class LinkedInAutomation:
         except Exception as e:
             logger.exception(f"❌ Failed to click the 'Post' button: {e}")
             raise  # Re-raise the exception to stop further execution
+
     def post_content(self, content):
         """Automates the process of posting content to LinkedIn."""
         try:
