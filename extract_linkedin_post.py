@@ -1,3 +1,4 @@
+import json
 from utils.post_linkedin import post_linkedin
 
 def bold_text(text):
@@ -17,13 +18,14 @@ def extract_linkedin_post(post_data, index):
         str: A formatted LinkedIn post.
     """
     # Get all post keys (Post 1, Post 2, etc.)
-    post_keys = list(post_data.keys())  
+    post_dict = json.loads(post_data)
+    post_keys = list(post_dict.keys())  
     if index >= len(post_keys):  
         index = 0  
 
     post_key = post_keys[index]  
     # Extract the actual post content
-    post = post_data[post_key]  
+    post = post_dict[post_key]  
 
     # Format the LinkedIn post
     title = post.get("Title", "")

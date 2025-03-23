@@ -32,10 +32,10 @@ def post_to_twitter(post):
     print(f"✅ Content posted to Twitter")
 
 
-def post_to_linkedin(post):
+#def post_to_linkedin(post):
     """Posts content to LinkedIn."""
     # post_linkedin(post)
-    logger.info(f"✅ Content posted to LinkedIn")
+#    logger.info(f"✅ Content posted to LinkedIn")
 
 
 def process_new_video(channel_url):
@@ -60,15 +60,14 @@ def fetch_new_content():
         return [], []
 
 
-def post_content(TWITTER_POSTS, LINKEDIN_POSTS):
+def post_content(TWITTER_POSTS):
     """Posts content to Twitter and LinkedIn over 2 days."""
     twitter_post_done = 0
-    linkedin_post_done = 0
-    linkedin_index = 0
+ #  linkedin_post_done = 0
+ #   linkedin_index = 0
    
 
-    while twitter_post_done < len(TWITTER_POSTS) or linkedin_post_done < len(
-        LINKEDIN_POSTS):
+    while twitter_post_done < len(TWITTER_POSTS):
         current_time = get_current_time()
 
         logger.info(f"Checking time: {current_time}")
@@ -80,24 +79,24 @@ def post_content(TWITTER_POSTS, LINKEDIN_POSTS):
             posted = True
 
         # LinkedIn Posting Logic
-        if current_time in LINKEDIN_POST_TIMES and linkedin_post_done < len(LINKEDIN_POSTS):
-            post, new_index = extract_linkedin_post(LINKEDIN_POSTS, linkedin_index)
-            if post:
-                post_to_linkedin(post)
-                linkedin_post_done += 1
-                linkedin_index = new_index
-                posted = True
-            else:
-                logger.error(f"Error: Could not extract post at index {linkedin_index}")
-
+    #    if current_time in LINKEDIN_POST_TIMES and linkedin_post_done < len(LINKEDIN_POSTS):
+   #         post, new_index = extract_linkedin_post(LINKEDIN_POSTS, linkedin_index)
+  #          if post:
+  #              post_to_linkedin(post)
+   #             linkedin_post_done += 1
+  #              linkedin_index = new_index
+ #               posted = True
+#            else:
+#                logger.error(f"Error: Could not extract post at index {linkedin_index}")
+#
         if posted:
             logger.info(
-                f"✅ Posts so far → Twitter: {twitter_post_done}, LinkedIn: {linkedin_post_done}"
+                f"✅ Posts so far → Twitter: {twitter_post_done}"
             )
     
 
         # If all posts are done, break loop
-        if twitter_post_done >= len(TWITTER_POSTS) and linkedin_post_done >= len(LINKEDIN_POSTS):
+        if twitter_post_done >= len(TWITTER_POSTS):
             logger.info("🎯 All posts completed for this cycle.")
             break
 
@@ -113,13 +112,13 @@ def main():
         process_new_video(channel_url)
 
         logger.info("🎬 Fetching new content for the next posting cycle...")
-        TWITTER_POSTS, LINKEDIN_POSTS = fetch_new_content()
-        if not TWITTER_POSTS or not LINKEDIN_POSTS:
+        TWITTER_POSTS, _ = fetch_new_content()
+        if not TWITTER_POSTS:
             logger.error("⚠️ No content fetched. Skipping cycle...")
             time.sleep(300)  # Wait 5 minutes before retrying
             continue
         
-        post_content(TWITTER_POSTS, LINKEDIN_POSTS)
+        post_content(TWITTER_POSTS)
         logger.info("🔄 All posts for this batch are done. Restarting next cycle...")
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ LOG_LEVEL = logging.INFO
 
 
 # Define a rotating file handler
-handler = RotatingFileHandler(LOG_FILE, maxBytes=10*1024*1024, backupCount=1)
+handler = RotatingFileHandler(LOG_FILE, maxBytes=2*1024*1024, backupCount=1)
 
 # Set the logging format
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
