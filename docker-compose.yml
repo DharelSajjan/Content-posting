@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: content_posting_app
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    # Optionally override the default command
+    # command: ["python", "scheduler_linkedin_post.py"]
+    # Expose ports if needed, e.g.:
+    # ports:
+    #   - "8000:8000"
