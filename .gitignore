@@ -3,3 +3,4 @@ tweet/
 current_files/
 .env
 aws.pem
+.png
