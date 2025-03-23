@@ -4,10 +4,11 @@ from datetime import datetime
 from extract_linkedin_post import extract_linkedin_post
 from utils.page_post_selenium import LinkedInAutomation
 from logger_config import get_logger
+from utils.settings import STAGE
 
 logger = get_logger(__name__)
 
-LINKEDIN_POST_TIMES = ["12:11", "23:02"]
+LINKEDIN_POST_TIMES = ["10:00", "22:00"]
 
 
 def fetch_linkedin_posts(index):
@@ -26,7 +27,11 @@ def fetch_linkedin_posts(index):
 
 
 def get_current_time():
-    """Returns the current time in HH:MM format."""
+    """Returns the current time in HH:MM format.
+    In test mode (STAGE=test), always returns the first scheduled time.
+    """
+    if STAGE == "test":
+        return LINKEDIN_POST_TIMES[0]
     return datetime.now().strftime("%H:%M")
 
 
@@ -39,8 +44,8 @@ def post_to_linkedin(post):
 
 def scheduler_linkedin_post():
     """Continuously posts LinkedIn content for each video ID in sequence."""
-    linkedin_index = 4
-    table_index = 6
+    linkedin_index = 0
+    table_index = 0
     posts_done = 0
     while True:
         row = fetch_linkedin_posts(table_index)
