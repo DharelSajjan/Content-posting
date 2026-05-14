@@ -58,7 +58,7 @@ def actual_post(access_token, user_urn, content):
 
 def post_linkedin(content):
     """Main function to orchestrate the LinkedIn posting process."""
-    access_token="AQW3vr4ScWrdDpnbe5BP5DLgmtUuuFOZ1rds69pHIUjoCz30ibyM4QOyQdynXtqlWpTHdSrQVhfLpElC2W9gYYwZnlbkcLAJXPNb7HHIgarStPLYRoYRNQpq40c3bXW9WQlQdcSonhjF_6l9sbR-AvGGn741O44yHbDL7E6YZnKqUyCXS6neAZmtEMELIMscl2pRD7pcf-KCDD3aRGtvZOcyahFpD9XRloUKcuo2KxV6jexShMIjcJllqrmiJ0ocaeUCL_zISn12Td0eolBbgPyXp9NYGf9_m__E0u--RXLRmehvMVLtxa_tL2VcVQn3lbsnbLEnA8giMB8OEhwtjg4Cx1Qhhg"
+    access_token=""
     user_urn = get_linkedin_user_urn(access_token)
     if user_urn:
         actual_post(access_token, user_urn, content)
